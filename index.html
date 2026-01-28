@@ -89,6 +89,31 @@
             overflow: hidden;
         }
         
+        /* 어머니 사진 배경 - 안개처럼 서서히 */
+        .memorial-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://raw.githubusercontent.com/kfpc0808/remembrance/main/mother.jpg') center center / cover no-repeat;
+            opacity: 0;
+            -webkit-animation: fadeInOut 15s ease-in-out infinite;
+            animation: fadeInOut 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @-webkit-keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            35%, 65% { opacity: 0.85; }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            35%, 65% { opacity: 0.85; }
+        }
+        
         /* 헤더 장식 패턴 */
         .memorial-header::before {
             content: '';
@@ -101,6 +126,7 @@
                 radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 60%),
                 radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.05) 0%, transparent 50%);
             pointer-events: none;
+            z-index: 1;
         }
         
         /* 상단 금색 라인 */
