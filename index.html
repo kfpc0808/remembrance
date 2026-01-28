@@ -10,218 +10,594 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="추도예배">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#081425">
-    <meta name="msapplication-navbutton-color" content="#081425">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a1628">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Part 1/3: Enhanced Design System & Core Styles */
-
-        /* 1. Google Fonts Import (Noto Sans KR & Playfair Display) */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
-
-        /* 2. CSS Reset */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { -webkit-text-size-adjust: 100%; -moz-tab-size: 4; tab-size: 4; font-family: var(--font-sans); height: -webkit-fill-available; }
-        body { line-height: 1.6; background-color: var(--color-bg); color: var(--color-gray-800); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        a { color: inherit; text-decoration: inherit; }
-        h1, h2, h3, h4, h5, h6 { font-weight: inherit; font-size: inherit; }
-        img, svg, video, canvas, audio, iframe, embed, object { display: block; max-width: 100%; }
-
-        /* 3. Design Tokens: Colors, Fonts, Spacing, etc. */
-        :root {
-            /* Color Palette */
-            --color-navy-deep: #081425;
-            --color-navy-medium: #1a3a69;
-            --color-navy-light: #3e669d;
-            --color-gold-accent: #d4af37;
-            --color-gold-hover: #e7c569;
-            --color-bg: #f4f6f9;
-            --color-paper: #ffffff;
-            --color-gray-400: #9ca3af;
-            --color-gray-500: #6b7280;
-            --color-gray-600: #4b5563;
-            --color-gray-800: #1f2937;
-            --focus-ring-color: #60a5fa;
-
-            /* Font Stack */
-            --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --font-serif: 'Playfair Display', serif;
-
-            /* Typography Scale */
-            --font-size-sm: 0.875rem;   /* 14px */
-            --font-size-base: 1.0625rem;/* 17px */
-            --font-size-lg: 1.125rem;   /* 18px */
-            --font-size-xl: 1.25rem;   /* 20px */
-            --font-size-2xl: 1.5rem;   /* 24px */
-            --font-size-3xl: 2rem;     /* 32px */
-            --font-size-4xl: 2.75rem;  /* 44px */
-
-            /* Spacing System */
-            --space-2: 0.5rem;   /* 8px */
-            --space-4: 1rem;     /* 16px */
-            --space-5: 1.25rem;  /* 20px */
-            --space-6: 1.5rem;   /* 24px */
-            --space-8: 2rem;     /* 32px */
-            --space-10: 2.5rem;  /* 40px */
-            --space-12: 3rem;    /* 48px */
-            --space-16: 4rem;    /* 64px */
-
-            /* Borders & Shadows */
-            --border-radius-md: 0.5rem;
-            --border-radius-lg: 0.75rem;
-            --shadow-subtle: 0 4px 12px 0 rgb(0 20 60 / 0.05);
-            --shadow-lifted: 0 10px 25px -5px rgb(0 20 60 / 0.1), 0 8px 10px -6px rgb(0 20 60 / 0.1);
+        /* ============================================
+           PREMIUM MEMORIAL SERVICE - Senior Designer Edition
+           ============================================ */
+        
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
         }
         
-        /* 4. Base & Layout Styles - iOS Safari 최적화 */
-        body {
+        html { 
+            -webkit-text-size-adjust: 100%; 
+            height: -webkit-fill-available; 
+        }
+        
+        body { 
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7; 
+            background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 50%, #0a1628 100%);
+            background-attachment: fixed;
+            color: #2d3748;
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
             display: -webkit-flex;
             display: flex;
             -webkit-justify-content: center;
             justify-content: center;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
+            padding: 0;
             -webkit-overflow-scrolling: touch;
         }
-
-        .program-sheet {
-            width: 100%;
-            max-width: 800px;
-            min-height: 100vh;
-            background-color: var(--color-paper);
-            box-shadow: var(--shadow-lifted);
-            padding: var(--space-8) var(--space-5);
-        }
+        
         @media (min-width: 768px) {
-            body { padding: var(--space-8) 0; }
-            .program-sheet {
-                min-height: auto;
-                border-radius: var(--border-radius-lg);
-                padding: var(--space-16) var(--space-10);
+            body {
+                padding: 40px 20px;
             }
         }
 
-        /* 5. Accessibility */
-        :focus-visible {
-            outline: 2px solid var(--focus-ring-color);
-            outline-offset: 2px;
-            border-radius: 4px;
+        /* Main Container */
+        .program-sheet {
+            width: 100%;
+            max-width: 680px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+            position: relative;
+            overflow: hidden;
         }
-    </style>
-    
-    <style>
-        /* Part 2/3: Tailwind-inspired Utility & Component Classes */
         
-        /* Layout & Spacing */
-        .text-center { text-align: center; }
-        .mt-4 { margin-top: var(--space-4); }
-        .mt-8 { margin-top: var(--space-8); }
-        .mt-10 { margin-top: var(--space-10); }
-        .mt-12 { margin-top: var(--space-12); }
-
-        /* Typography */
-        .font-sans { font-family: var(--font-sans); }
-        .font-serif { font-family: var(--font-serif); }
-        .text-xl { font-size: var(--font-size-xl); }
-        .text-4xl { font-size: var(--font-size-4xl); }
-
-        /* Colors */
-        .text-navy-deep { color: var(--color-navy-deep); }
-        .text-gray-600 { color: var(--color-gray-600); }
-
-        /* Components - iOS Safari 호환 */
-        .service-header {
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: var(--space-8);
-            margin-bottom: var(--space-12);
+        @media (min-width: 768px) {
+            .program-sheet {
+                min-height: auto;
+                border-radius: 20px;
+                box-shadow: 
+                    0 50px 100px -20px rgba(0,0,0,0.5),
+                    0 30px 60px -30px rgba(0,0,0,0.4),
+                    inset 0 1px 0 rgba(255,255,255,0.9);
+            }
         }
 
-        .service-item { -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .prose { color: var(--color-gray-800); line-height: 1.8; text-align: justify; word-break: keep-all; }
-
-        .centered-divider { text-align: center; overflow: hidden; }
-        .centered-divider::before,
-        .centered-divider::after { content: ''; display: inline-block; vertical-align: middle; width: 40%; height: 1px; background: #e5e7eb; }
-        .centered-divider svg { display: inline-block; vertical-align: middle; color: var(--color-gold-accent); width: 16px; height: 16px; margin: 0 var(--space-4); }
-
-        /* -- Program Row Layout -- iOS Safari 호환 */
-        .program-row { display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: center; align-items: center; gap: var(--space-6); padding: var(--space-2) 0; }
-        .program-title { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; gap: var(--space-4); font-size: var(--font-size-xl); font-weight: 500; color: var(--color-navy-deep); -webkit-flex-shrink: 0; flex-shrink: 0; }
-        .program-title svg { width: 1.2em; height: 1.2em; color: var(--color-gold-accent); }
-        .program-detail { font-size: var(--font-size-lg); color: var(--color-gray-800); text-align: right; font-weight: 400; }
+        /* ============================================
+           HEADER - 엄숙하고 경건한 분위기
+           ============================================ */
+        .memorial-header {
+            background: linear-gradient(180deg, #0a1628 0%, #142240 100%);
+            padding: 50px 24px 45px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
         
-        /* -- Hymn Block Layout -- iOS Safari 호환 */
-        .hymn-section .hymn-header { display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: center; align-items: center; }
-        .hymn-section .hymn-title-link { text-align: center; margin-top: var(--space-4); }
-        .hymn-section .hymn-title-link a {
-            display: inline-block;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--color-gray-800);
-            text-decoration: none;
-            padding: var(--space-4);
-            border-radius: var(--border-radius-lg);
-            background-color: #f8fafc;
-            border: 1px solid #f1f5f9;
-            -webkit-box-shadow: var(--shadow-subtle);
-            box-shadow: var(--shadow-subtle);
-            -webkit-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-            -webkit-tap-highlight-color: transparent;
+        /* 헤더 장식 패턴 */
+        .memorial-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
-        .hymn-section .hymn-title-link a:hover,
-        .hymn-section .hymn-title-link a:active {
-            -webkit-transform: translateY(-2px);
-            transform: translateY(-2px);
-            border-color: #e2e8f0;
-            -webkit-box-shadow: var(--shadow-lifted);
-            box-shadow: var(--shadow-lifted);
-            color: var(--color-navy-deep);
+        
+        /* 상단 금색 라인 */
+        .header-gold-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+        
+        /* 십자가 심볼 */
+        .cross-symbol {
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 20px;
+            opacity: 0.6;
+        }
+        .cross-symbol svg {
+            width: 100%;
+            height: 100%;
+            fill: #d4af37;
+        }
+        
+        /* 예배 타입 */
+        .service-type {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: #d4af37;
+            letter-spacing: 0.3em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        
+        /* 메인 타이틀 */
+        .memorial-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* 구분선 */
+        .header-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+            margin: 0 auto 24px;
+        }
+        
+        /* 故人 성함 */
+        .deceased-name {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+        
+        .memorial-occasion {
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+        
+        /* 날짜/시간 */
+        .memorial-datetime {
+            display: -webkit-inline-flex;
+            display: inline-flex;
+            -webkit-align-items: center;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 30px;
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+        
+        .memorial-datetime span {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.05em;
+        }
+        
+        .datetime-dot {
+            width: 4px;
+            height: 4px;
+            background: #d4af37;
+            border-radius: 50%;
         }
 
-        /* -- Collapsible Section Layout -- iOS Safari 호환 */
-        .collapsible-item .service-title { /* For expandable items like Creed, Scripture */
+        /* ============================================
+           CONTENT AREA
+           ============================================ */
+        .program-content {
+            padding: 40px 24px 50px;
+        }
+        
+        @media (min-width: 768px) {
+            .program-content {
+                padding: 50px 40px 60px;
+            }
+        }
+
+        /* ============================================
+           PROGRAM ITEMS
+           ============================================ */
+        .program-item {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid #f0f0f0;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+        }
+        
+        .program-item:last-child {
+            border-bottom: none;
+        }
+        
+        .program-item-left {
             display: -webkit-flex;
             display: flex;
             -webkit-align-items: center;
             align-items: center;
-            gap: var(--space-4);
-            font-size: var(--font-size-xl); /* UNIFIED FONT SIZE */
-            font-weight: 700;
-            color: var(--color-navy-deep);
+            gap: 14px;
         }
-        .collapsible-item .service-title svg { width: 1.1em; height: 1.1em; -webkit-flex-shrink: 0; flex-shrink: 0; color: var(--color-gold-accent); }
+        
+        .program-icon {
+            width: 36px;
+            height: 36px;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #faf8f3 0%, #f5f0e6 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(212,175,55,0.15);
+        }
+        
+        .program-icon svg {
+            width: 18px;
+            height: 18px;
+            color: #c9a227;
+        }
+        
+        .program-name {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a2a4a;
+        }
+        
+        .program-leader {
+            font-size: 15px;
+            color: #6b7280;
+            font-weight: 400;
+        }
 
-        .collapsible-item > summary { list-style: none; cursor: pointer; position: relative; -webkit-transition: margin-bottom 0.2s ease; transition: margin-bottom 0.2s ease; -webkit-tap-highlight-color: transparent; }
-        .collapsible-item > summary::-webkit-details-marker { display: none; }
-        .collapsible-item > summary .service-title { margin-bottom: 0; width: 100%; }
-        .collapsible-item[open] > summary .service-title { margin-bottom: var(--space-4); }
+        /* ============================================
+           HYMN SECTION - 찬송가
+           ============================================ */
+        .hymn-block {
+            margin: 28px 0;
+            padding: 24px;
+            background: linear-gradient(135deg, #fdfcfa 0%, #f8f6f1 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(212,175,55,0.12);
+        }
+        
+        .hymn-header {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: center;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .hymn-label {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a2a4a;
+        }
+        
+        .hymn-label svg {
+            width: 20px;
+            height: 20px;
+            color: #c9a227;
+        }
+        
+        .hymn-title-btn {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            background: #ffffff;
+            border: 1px solid #e8e5de;
+            border-radius: 12px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            text-align: center;
+            cursor: pointer;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .hymn-title-btn:active {
+            -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+            background: #fafafa;
+        }
 
-        .collapsible-item > summary::after { content: ''; position: absolute; right: 0.5rem; top: 50%; width: 0.6em; height: 0.6em; border-style: solid; border-color: var(--color-gray-500); border-width: 0 2px 2px 0; -webkit-transform: translateY(-60%) rotate(45deg); transform: translateY(-60%) rotate(45deg); -webkit-transition: transform 0.2s ease-in-out; transition: transform 0.2s ease-in-out; }
-        .collapsible-item[open] > summary::after { -webkit-transform: translateY(-40%) rotate(225deg); transform: translateY(-40%) rotate(225deg); }
-        .collapsible-item .collapsible-content { padding-left: calc(1.1em + var(--space-4)); margin-top: var(--space-2); }
+        /* ============================================
+           EXPANDABLE SECTIONS
+           ============================================ */
+        .expand-section {
+            margin: 24px 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e8e8e8;
+            background: #ffffff;
+        }
+        
+        .expand-header {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #fdfcfa 0%, #f9f8f5 100%);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-transition: background 0.2s;
+            transition: background 0.2s;
+        }
+        
+        .expand-header:active {
+            background: #f5f4f1;
+        }
+        
+        .expand-title {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a2a4a;
+        }
+        
+        .expand-title svg {
+            width: 20px;
+            height: 20px;
+            color: #c9a227;
+        }
+        
+        .expand-arrow {
+            width: 20px;
+            height: 20px;
+            color: #9ca3af;
+            -webkit-transition: transform 0.3s ease;
+            transition: transform 0.3s ease;
+        }
+        
+        details[open] .expand-arrow {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        
+        details summary {
+            list-style: none;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
 
-        /* Scripture source specific styles - iOS Safari 호환 */
-        .scripture-sources { margin-top: var(--space-6); display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: var(--space-2); }
-        .scripture-source { background-color: #fdfdfd; border: 1px solid #e5e7eb; border-radius: var(--border-radius-md); -webkit-transition: box-shadow 0.2s ease; transition: box-shadow 0.2s ease; }
-        .scripture-source:hover { box-shadow: var(--shadow-subtle); }
-        .scripture-source > summary { list-style: none; cursor: pointer; padding: var(--space-4); font-weight: 500; font-size: var(--font-size-lg); color: var(--color-navy-medium); position: relative; -webkit-tap-highlight-color: transparent; }
-        .scripture-source > summary::-webkit-details-marker { display: none; }
-        .scripture-source > summary::after { content: ''; position: absolute; right: 1.25rem; top: 50%; width: 0.5em; height: 0.5em; border-style: solid; border-color: var(--color-gray-500); border-width: 0 2px 2px 0; -webkit-transform: translateY(-50%) rotate(45deg); transform: translateY(-50%) rotate(45deg); -webkit-transition: transform 0.2s ease-in-out; transition: transform 0.2s ease-in-out; }
-        .scripture-source[open] > summary::after { -webkit-transform: translateY(-25%) rotate(225deg); transform: translateY(-25%) rotate(225deg); }
-        .scripture-source[open] > summary { border-bottom: 1px solid #e5e7eb; }
-        .scripture-source .prose { padding: var(--space-5); font-size: var(--font-size-base); }
-        .scripture-text .verse { display: -webkit-flex; display: flex; gap: var(--space-4); }
-        .scripture-text .verse-number { font-weight: 700; font-size: var(--font-size-sm); color: var(--color-gold-accent); line-height: inherit; }
-        .scripture-source .prose .english-scripture { color: var(--color-gray-600); font-size: var(--font-size-sm); font-style: italic; margin-top: var(--space-4); border-left: 3px solid var(--color-gold-accent); padding-left: var(--space-4); }
+        /* ============================================
+           사도신경 / 주기도문 - Premium Card
+           ============================================ */
+        .prayer-card {
+            padding: 32px 24px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+            position: relative;
+        }
+        
+        .prayer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #d4af37 30%, #d4af37 70%, transparent 100%);
+        }
+        
+        .prayer-eng-title {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #c9a227;
+            letter-spacing: 0.2em;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+        
+        .prayer-text {
+            font-size: 15px;
+            line-height: 2;
+            color: #374151;
+            word-break: keep-all;
+        }
+        
+        .prayer-text.centered {
+            text-align: center;
+        }
+        
+        .prayer-text.justified {
+            text-align: justify;
+        }
+        
+        .prayer-text p {
+            margin-bottom: 6px;
+        }
+        
+        .prayer-text .emphasis {
+            color: #1a2a4a;
+            font-weight: 600;
+        }
+        
+        .prayer-text .section-break {
+            height: 16px;
+        }
+        
+        .prayer-amen {
+            text-align: center;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+        }
+        
+        .prayer-amen span {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #c9a227;
+            letter-spacing: 0.15em;
+        }
 
-        /* Hymn Image Overlay - iOS Safari 최적화 */
+        /* ============================================
+           성경말씀 - Scripture
+           ============================================ */
+        .scripture-card {
+            padding: 24px;
+        }
+        
+        .scripture-ref {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a3a69;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .scripture-ref::before {
+            content: '📖';
+            font-size: 14px;
+        }
+        
+        .verse-item {
+            display: -webkit-flex;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            line-height: 1.85;
+        }
+        
+        .verse-num {
+            font-size: 12px;
+            font-weight: 700;
+            color: #c9a227;
+            min-width: 18px;
+            padding-top: 2px;
+        }
+        
+        .verse-text {
+            font-size: 15px;
+            color: #374151;
+            text-align: justify;
+            word-break: keep-all;
+        }
+        
+        .verse-text .highlight {
+            color: #1a2a4a;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           DIVIDER
+           ============================================ */
+        .section-divider {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 36px 0;
+        }
+        
+        .divider-line {
+            -webkit-flex: 1;
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+        }
+        
+        .divider-symbol {
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .memorial-footer {
+            text-align: center;
+            padding: 40px 24px 50px;
+            background: linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.03) 100%);
+        }
+        
+        .footer-verse {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .footer-ref {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        
+        .footer-love {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .footer-love p {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 15px;
+            color: #1a2a4a;
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================
+           HYMN IMAGE OVERLAY
+           ============================================ */
         .hymn-overlay {
             display: none;
             position: fixed;
@@ -229,354 +605,265 @@
             left: 0;
             right: 0;
             bottom: 0;
-            width: 100%;
-            height: 100%;
-            height: -webkit-fill-available;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(0,0,0,0.95);
             z-index: 9999;
             -webkit-justify-content: center;
             justify-content: center;
             -webkit-align-items: center;
             align-items: center;
-            cursor: pointer;
-            -webkit-overflow-scrolling: touch;
-            -webkit-tap-highlight-color: transparent;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top));
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
         }
+        
         .hymn-overlay.active {
             display: -webkit-flex;
             display: flex;
         }
-        .hymn-title-link a {
+        
+        .hymn-overlay-inner {
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .hymn-overlay img {
+            max-width: 100%;
+            max-height: calc(100vh - 120px);
+            -o-object-fit: contain;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+        }
+        
+        .hymn-close-btn {
+            position: absolute;
+            bottom: -50px;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
     <main class="program-sheet">
         
-        <header class="service-header text-center">
-            <h1 class="font-serif text-4xl text-navy-deep tracking-wide">추도예배</h1>
-            <p class="font-sans text-xl text-gray-600 mt-4">故 임정녀 어머님 제 8주기</p>
-            <p class="font-sans text-base text-gray-400 mt-4 tracking-wider">2026년 1월 29일(목) 오후 7:00</p>
+        <!-- ============================================
+             HEADER
+             ============================================ -->
+        <header class="memorial-header">
+            <div class="header-gold-line"></div>
+            
+            <div class="cross-symbol">
+                <svg viewBox="0 0 24 24"><path d="M11 2v7H4v4h7v9h2v-9h7V9h-7V2z"/></svg>
+            </div>
+            
+            <p class="service-type">Memorial Service</p>
+            
+            <h1 class="memorial-title">추도예배</h1>
+            
+            <div class="header-divider"></div>
+            
+            <p class="deceased-name">故 임정녀 어머님</p>
+            <p class="memorial-occasion">제 8주기</p>
+            
+            <div class="memorial-datetime">
+                <span>2026. 1. 29 (목)</span>
+                <div class="datetime-dot"></div>
+                <span>오후 7:00</span>
+            </div>
         </header>
 
-        <div class="program-row">
-            <div class="program-title">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
-                <span>묵상기도</span>
+        <!-- ============================================
+             CONTENT
+             ============================================ -->
+        <div class="program-content">
+            
+            <!-- 묵상기도 -->
+            <div class="program-item">
+                <div class="program-item-left">
+                    <div class="program-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
+                    </div>
+                    <span class="program-name">묵상기도</span>
+                </div>
+                <span class="program-leader">다같이</span>
             </div>
-            <div class="program-detail">
-                <span>다같이</span>
-            </div>
-        </div>
 
-        <section class="hymn-section mt-12">
-            <div class="hymn-header">
-                <div class="program-title">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" /></svg>
-                    <span>찬송</span>
+            <!-- 찬송 412 -->
+            <div class="hymn-block">
+                <div class="hymn-header">
+                    <div class="hymn-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" /></svg>
+                        <span>찬송</span>
+                    </div>
+                    <span class="program-leader">다같이</span>
                 </div>
-                <div class="program-detail">
-                    <span>다같이</span>
-                </div>
+                <button type="button" class="hymn-title-btn" onclick="openHymnImage('412')">
+                    412. 내 영혼의 그윽히 깊은데서
+                </button>
             </div>
-            <div class="hymn-title-link">
-                <a href="javascript:void(0)" onclick="openHymnImage('412')">412. 내 영혼의 그윽히 깊은데서</a>
-            </div>
-        </section>
-        
-        <section class="service-item mt-10">
-            <details class="collapsible-item">
-                <summary>
-                    <div class="service-title">
+
+            <!-- 사도신경 -->
+            <details class="expand-section">
+                <summary class="expand-header">
+                    <div class="expand-title">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
                         <span>사도신경</span>
                     </div>
+                    <svg class="expand-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                 </summary>
-                <div class="collapsible-content">
-                    <!-- 사도신경 - 인라인 스타일 모바일 최적화 -->
-                    <div style="
-                        position: relative;
-                        background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
-                        border-radius: 16px;
-                        padding: 28px 20px 24px 20px;
-                        margin-top: 8px;
-                        box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-                        border: 1px solid rgba(212,175,55,0.15);
-                        -webkit-tap-highlight-color: transparent;
-                    ">
-                        <!-- 상단 금색 라인 -->
-                        <div style="
-                            position: absolute;
-                            top: 0;
-                            left: 20px;
-                            right: 20px;
-                            height: 3px;
-                            background: linear-gradient(90deg, transparent 0%, #d4af37 20%, #e7c569 50%, #d4af37 80%, transparent 100%);
-                            border-radius: 0 0 2px 2px;
-                        "></div>
-                        
-                        <!-- 제목 -->
-                        <div style="
-                            text-align: center;
-                            margin-bottom: 20px;
-                            padding-bottom: 16px;
-                            border-bottom: 1px solid rgba(212,175,55,0.2);
-                        ">
-                            <span style="
-                                font-size: 13px;
-                                font-weight: 600;
-                                color: #d4af37;
-                                letter-spacing: 0.15em;
-                                text-transform: uppercase;
-                            ">THE APOSTLES' CREED</span>
-                        </div>
-                        
-                        <!-- 본문 -->
-                        <div style="
-                            font-size: 15px;
-                            line-height: 1.9;
-                            color: #2d3748;
-                            word-break: keep-all;
-                            -webkit-font-smoothing: antialiased;
-                        ">
-                            <p style="margin-bottom: 16px; text-align: justify;">
-                                나는 <span style="color: #081425; font-weight: 600;">전능하신 아버지 하나님</span>, 천지의 창조주를 믿습니다.
-                            </p>
-                            <p style="margin-bottom: 16px; text-align: justify;">
-                                나는 그의 유일하신 아들, 우리 주 <span style="color: #081425; font-weight: 600;">예수 그리스도</span>를 믿습니다. 그는 성령으로 잉태되어 동정녀 마리아에게서 나시고, 본디오 빌라도에게 고난을 받아 십자가에 못 박혀 죽으시고, 장사된 지 사흘 만에 죽은 자 가운데서 다시 살아나셨으며, 하늘에 오르시어 전능하신 아버지 하나님 우편에 앉아 계시다가, 거기로부터 살아 있는 자와 죽은 자를 심판하러 오십니다.
-                            </p>
-                            <p style="margin-bottom: 0; text-align: justify;">
-                                나는 <span style="color: #081425; font-weight: 600;">성령</span>을 믿으며, 거룩한 공교회와 성도의 교제와 죄를 용서받는 것과 몸의 부활과 영생을 믿습니다.
-                            </p>
-                        </div>
-                        
-                        <!-- 아멘 -->
-                        <div style="
-                            text-align: center;
-                            margin-top: 24px;
-                            padding-top: 16px;
-                            border-top: 1px solid rgba(212,175,55,0.2);
-                        ">
-                            <span style="
-                                font-size: 18px;
-                                font-weight: 700;
-                                color: #d4af37;
-                                letter-spacing: 0.2em;
-                            ">아멘</span>
-                        </div>
-                        
-                        <!-- 하단 금색 라인 -->
-                        <div style="
-                            position: absolute;
-                            bottom: 0;
-                            left: 20px;
-                            right: 20px;
-                            height: 3px;
-                            background: linear-gradient(90deg, transparent 0%, #d4af37 20%, #e7c569 50%, #d4af37 80%, transparent 100%);
-                            border-radius: 2px 2px 0 0;
-                        "></div>
+                <div class="prayer-card">
+                    <p class="prayer-eng-title">The Apostles' Creed</p>
+                    <div class="prayer-text justified">
+                        <p>나는 <span class="emphasis">전능하신 아버지 하나님</span>, 천지의 창조주를 믿습니다.</p>
+                        <div class="section-break"></div>
+                        <p>나는 그의 유일하신 아들, 우리 주 <span class="emphasis">예수 그리스도</span>를 믿습니다. 그는 성령으로 잉태되어 동정녀 마리아에게서 나시고, 본디오 빌라도에게 고난을 받아 십자가에 못 박혀 죽으시고, 장사된 지 사흘 만에 죽은 자 가운데서 다시 살아나셨으며, 하늘에 오르시어 전능하신 아버지 하나님 우편에 앉아 계시다가, 거기로부터 살아 있는 자와 죽은 자를 심판하러 오십니다.</p>
+                        <div class="section-break"></div>
+                        <p>나는 <span class="emphasis">성령</span>을 믿으며, 거룩한 공교회와 성도의 교제와 죄를 용서받는 것과 몸의 부활과 영생을 믿습니다.</p>
                     </div>
+                    <div class="prayer-amen"><span>아멘</span></div>
                 </div>
             </details>
-        </section>
 
-        <div class="program-row mt-10">
-            <div class="program-title">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" /></svg>
-                <span>대표기도</span>
+            <!-- 대표기도 -->
+            <div class="program-item">
+                <div class="program-item-left">
+                    <div class="program-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" /></svg>
+                    </div>
+                    <span class="program-name">대표기도</span>
+                </div>
+                <span class="program-leader">맡은이</span>
             </div>
-            <div class="program-detail">
-                <span>맡은이</span>
+
+            <!-- 구분선 -->
+            <div class="section-divider">
+                <div class="divider-line"></div>
+                <div class="divider-symbol"></div>
+                <div class="divider-line"></div>
             </div>
-        </div>
-        
-        <div class="centered-divider mt-12">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>
-        </div>
 
-
-        <section class="service-item mt-12">
-            <details class="collapsible-item">
-                <summary>
-                    <div class="service-title">
+            <!-- 성경말씀 -->
+            <details class="expand-section">
+                <summary class="expand-header">
+                    <div class="expand-title">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" /></svg>
                         <span>성경말씀</span>
                     </div>
+                    <svg class="expand-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                 </summary>
-                <div class="collapsible-content">
-                    <!-- 성경말씀 - 인라인 스타일 모바일 최적화 -->
-                    <div style="display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:12px;margin-top:8px;">
-                        
-                        <!-- 신명기 31:5-7 -->
-                        <details style="background:linear-gradient(180deg,#ffffff 0%,#fafafa 100%);border:1px solid rgba(212,175,55,0.2);border-radius:12px;overflow:hidden;-webkit-tap-highlight-color:transparent;">
-                            <summary style="list-style:none;cursor:pointer;padding:16px 20px;font-weight:600;font-size:16px;color:#1a3a69;position:relative;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:10px;">
-                                <span style="color:#d4af37;font-size:14px;">📖</span>
-                                신명기 31:5-7
-                                <span style="position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:2px solid #9ca3af;border-bottom:2px solid #9ca3af;-webkit-transform:translateY(-50%) rotate(45deg);transform:translateY(-50%) rotate(45deg);"></span>
-                            </summary>
-                            <div style="padding:20px;background:#fefefe;border-top:1px solid rgba(212,175,55,0.15);">
-                                <div style="display:-webkit-flex;display:flex;gap:12px;margin-bottom:16px;line-height:1.8;">
-                                    <span style="color:#d4af37;font-weight:700;font-size:13px;min-width:20px;-webkit-flex-shrink:0;flex-shrink:0;">5</span>
-                                    <p style="margin:0;font-size:15px;color:#2d3748;text-align:justify;word-break:keep-all;">또한 여호와께서 그들을 너희 앞에 넘기시리니 너희는 내가 너희에게 명한 모든 명령대로 그들에게 행할 것이라</p>
-                                </div>
-                                <div style="display:-webkit-flex;display:flex;gap:12px;margin-bottom:16px;line-height:1.8;">
-                                    <span style="color:#d4af37;font-weight:700;font-size:13px;min-width:20px;-webkit-flex-shrink:0;flex-shrink:0;">6</span>
-                                    <p style="margin:0;font-size:15px;color:#2d3748;text-align:justify;word-break:keep-all;"><span style="color:#081425;font-weight:600;">너희는 강하고 담대하라 두려워하지 말라 그들 앞에서 떨지 말라</span> 이는 네 하나님 여호와 그가 너와 함께 가시며 결코 너를 떠나지 아니하시며 버리지 아니하실 것임이라 하고</p>
-                                </div>
-                                <div style="display:-webkit-flex;display:flex;gap:12px;line-height:1.8;">
-                                    <span style="color:#d4af37;font-weight:700;font-size:13px;min-width:20px;-webkit-flex-shrink:0;flex-shrink:0;">7</span>
-                                    <p style="margin:0;font-size:15px;color:#2d3748;text-align:justify;word-break:keep-all;">모세가 여호수아를 불러 온 이스라엘의 목전에서 그에게 이르되 <span style="color:#081425;font-weight:600;">너는 강하고 담대하라</span> 너는 이 백성을 거느리고 여호와께서 그들의 조상에게 주리라고 맹세하신 땅에 들어가서 그들에게 그 땅을 차지하게 하라</p>
-                                </div>
-                            </div>
-                        </details>
+                <div class="scripture-card">
+                    <div class="scripture-ref">신명기 31:5-7</div>
+                    
+                    <div class="verse-item">
+                        <span class="verse-num">5</span>
+                        <p class="verse-text">또한 여호와께서 그들을 너희 앞에 넘기시리니 너희는 내가 너희에게 명한 모든 명령대로 그들에게 행할 것이라</p>
+                    </div>
+                    
+                    <div class="verse-item">
+                        <span class="verse-num">6</span>
+                        <p class="verse-text"><span class="highlight">너희는 강하고 담대하라 두려워하지 말라 그들 앞에서 떨지 말라</span> 이는 네 하나님 여호와 그가 너와 함께 가시며 결코 너를 떠나지 아니하시며 버리지 아니하실 것임이라 하고</p>
+                    </div>
+                    
+                    <div class="verse-item">
+                        <span class="verse-num">7</span>
+                        <p class="verse-text">모세가 여호수아를 불러 온 이스라엘의 목전에서 그에게 이르되 <span class="highlight">너는 강하고 담대하라</span> 너는 이 백성을 거느리고 여호와께서 그들의 조상에게 주리라고 맹세하신 땅에 들어가서 그들에게 그 땅을 차지하게 하라</p>
                     </div>
                 </div>
             </details>
-        </section>
-        
-        
-        <section class="hymn-section mt-12">
-            <div class="hymn-header">
-                <div class="program-title">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" /></svg>
-                    <span>찬송</span>
+
+            <!-- 찬송 370 -->
+            <div class="hymn-block">
+                <div class="hymn-header">
+                    <div class="hymn-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" /></svg>
+                        <span>찬송</span>
+                    </div>
+                    <span class="program-leader">다같이</span>
                 </div>
-                <div class="program-detail">
-                    <span>다같이</span>
-                </div>
+                <button type="button" class="hymn-title-btn" onclick="openHymnImage('370')">
+                    370. 주 안에 있는 나에게
+                </button>
             </div>
-            <div class="hymn-title-link">
-                 <a href="javascript:void(0)" onclick="openHymnImage('370')">370. 주 안에 있는 나에게</a>
-            </div>
-        </section>
-        
-        <section class="service-item mt-12">
-            <details class="collapsible-item">
-                <summary>
-                    <div class="service-title">
+
+            <!-- 주기도문 -->
+            <details class="expand-section">
+                <summary class="expand-header">
+                    <div class="expand-title">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>
                         <span>주기도문</span>
                     </div>
+                    <svg class="expand-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                 </summary>
-                <div class="collapsible-content">
-                    <!-- 주기도문 - 인라인 스타일 모바일 최적화 -->
-                    <div style="
-                        position: relative;
-                        background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
-                        border-radius: 16px;
-                        padding: 28px 20px 24px 20px;
-                        margin-top: 8px;
-                        box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-                        border: 1px solid rgba(212,175,55,0.15);
-                        -webkit-tap-highlight-color: transparent;
-                    ">
-                        <!-- 상단 금색 라인 -->
-                        <div style="
-                            position: absolute;
-                            top: 0;
-                            left: 20px;
-                            right: 20px;
-                            height: 3px;
-                            background: linear-gradient(90deg, transparent 0%, #d4af37 20%, #e7c569 50%, #d4af37 80%, transparent 100%);
-                            border-radius: 0 0 2px 2px;
-                        "></div>
-                        
-                        <!-- 제목 -->
-                        <div style="
-                            text-align: center;
-                            margin-bottom: 20px;
-                            padding-bottom: 16px;
-                            border-bottom: 1px solid rgba(212,175,55,0.2);
-                        ">
-                            <span style="
-                                font-size: 13px;
-                                font-weight: 600;
-                                color: #d4af37;
-                                letter-spacing: 0.15em;
-                                text-transform: uppercase;
-                            ">THE LORD'S PRAYER</span>
-                        </div>
-                        
-                        <!-- 본문 -->
-                        <div style="
-                            font-size: 15px;
-                            line-height: 2.1;
-                            color: #2d3748;
-                            text-align: center;
-                            word-break: keep-all;
-                            -webkit-font-smoothing: antialiased;
-                        ">
-                            <p style="margin-bottom: 20px;">
-                                <span style="color: #081425; font-weight: 600; font-size: 16px;">하늘에 계신 우리 아버지,</span>
-                            </p>
-                            <p style="margin-bottom: 6px;">아버지의 이름을 거룩하게 하시며,</p>
-                            <p style="margin-bottom: 6px;">아버지의 나라가 오게 하시며,</p>
-                            <p style="margin-bottom: 6px;">아버지의 뜻이 하늘에서와 같이</p>
-                            <p style="margin-bottom: 20px;">땅에서도 이루어지게 하소서.</p>
-                            
-                            <p style="margin-bottom: 6px;">오늘 우리에게 일용할 양식을 주시고,</p>
-                            <p style="margin-bottom: 6px;">우리가 우리에게 잘못한 사람을</p>
-                            <p style="margin-bottom: 6px;">용서하여 준 것같이</p>
-                            <p style="margin-bottom: 6px;">우리 죄를 용서하여 주시고,</p>
-                            <p style="margin-bottom: 6px;">우리를 시험에 빠지지 않게 하시고</p>
-                            <p style="margin-bottom: 20px;">악에서 구하소서.</p>
-                            
-                            <p style="margin-bottom: 0;">
-                                <span style="color: #081425; font-weight: 600;">나라와 권능과 영광이<br>영원히 아버지의 것입니다.</span>
-                            </p>
-                        </div>
-                        
-                        <!-- 아멘 -->
-                        <div style="
-                            text-align: center;
-                            margin-top: 24px;
-                            padding-top: 16px;
-                            border-top: 1px solid rgba(212,175,55,0.2);
-                        ">
-                            <span style="
-                                font-size: 18px;
-                                font-weight: 700;
-                                color: #d4af37;
-                                letter-spacing: 0.2em;
-                            ">아멘</span>
-                        </div>
-                        
-                        <!-- 하단 금색 라인 -->
-                        <div style="
-                            position: absolute;
-                            bottom: 0;
-                            left: 20px;
-                            right: 20px;
-                            height: 3px;
-                            background: linear-gradient(90deg, transparent 0%, #d4af37 20%, #e7c569 50%, #d4af37 80%, transparent 100%);
-                            border-radius: 2px 2px 0 0;
-                        "></div>
+                <div class="prayer-card">
+                    <p class="prayer-eng-title">The Lord's Prayer</p>
+                    <div class="prayer-text centered">
+                        <p><span class="emphasis">하늘에 계신 우리 아버지,</span></p>
+                        <div class="section-break"></div>
+                        <p>아버지의 이름을 거룩하게 하시며,</p>
+                        <p>아버지의 나라가 오게 하시며,</p>
+                        <p>아버지의 뜻이 하늘에서와 같이</p>
+                        <p>땅에서도 이루어지게 하소서.</p>
+                        <div class="section-break"></div>
+                        <p>오늘 우리에게 일용할 양식을 주시고,</p>
+                        <p>우리가 우리에게 잘못한 사람을</p>
+                        <p>용서하여 준 것같이</p>
+                        <p>우리 죄를 용서하여 주시고,</p>
+                        <p>우리를 시험에 빠지지 않게 하시고</p>
+                        <p>악에서 구하소서.</p>
+                        <div class="section-break"></div>
+                        <p><span class="emphasis">나라와 권능과 영광이</span></p>
+                        <p><span class="emphasis">영원히 아버지의 것입니다.</span></p>
                     </div>
+                    <div class="prayer-amen"><span>아멘</span></div>
                 </div>
             </details>
-        </section>
-        
-        <footer class="text-center" style="margin-top: var(--space-16);">
-            <p class="font-sans text-xl text-gray-600">하나님은 사랑이십니다.</p>
+
+        </div>
+
+        <!-- ============================================
+             FOOTER
+             ============================================ -->
+        <footer class="memorial-footer">
+            <p class="footer-verse">"내가 곧 길이요 진리요 생명이니"</p>
+            <p class="footer-ref">— 요한복음 14:6</p>
+            
+            <div class="footer-love">
+                <p>하나님은 사랑이십니다</p>
+            </div>
         </footer>
+
     </main>
 
+    <!-- ============================================
+         HYMN IMAGE OVERLAY
+         ============================================ -->
+    <div id="hymnOverlay" class="hymn-overlay" onclick="closeHymnImage()">
+        <div class="hymn-overlay-inner" onclick="event.stopPropagation()">
+            <img id="hymnImage" src="" alt="찬송가 악보">
+            <button type="button" class="hymn-close-btn" onclick="closeHymnImage()">닫기</button>
+        </div>
+    </div>
+
     <script>
-        // Hymn Image Viewer - iOS Safari 최적화
         function openHymnImage(hymnNumber) {
             var overlay = document.getElementById('hymnOverlay');
             var img = document.getElementById('hymnImage');
-            // GitHub raw 이미지 URL
             img.src = 'https://raw.githubusercontent.com/kfpc0808/remembrance/main/' + hymnNumber + '.jpg';
             img.alt = '찬송가 ' + hymnNumber;
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
             document.body.style.width = '100%';
-            document.body.style.height = '100%';
         }
         
         function closeHymnImage() {
@@ -585,43 +872,12 @@
             document.body.style.overflow = '';
             document.body.style.position = '';
             document.body.style.width = '';
-            document.body.style.height = '';
         }
         
-        // ESC 키로 닫기
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeHymnImage();
-            }
+            if (e.key === 'Escape') closeHymnImage();
         });
-        
-        // 터치 이벤트 - 이미지 외부 터치시 닫기
-        document.getElementById('hymnOverlay').addEventListener('touchend', function(e) {
-            if (e.target === this) {
-                closeHymnImage();
-            }
-        }, {passive: true});
     </script>
-    
-    <!-- Hymn Image Overlay - iOS 최적화 -->
-    <div id="hymnOverlay" class="hymn-overlay" onclick="closeHymnImage()">
-        <div style="display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;gap:12px;max-width:95%;max-height:95%;" onclick="event.stopPropagation();">
-            <img id="hymnImage" src="" alt="찬송가 악보" style="max-width:100%;max-height:calc(100vh - 100px);-o-object-fit:contain;object-fit:contain;border-radius:8px;">
-            <button type="button" onclick="closeHymnImage();" style="
-                background:rgba(255,255,255,0.95);
-                color:#333;
-                border:none;
-                padding:10px 24px;
-                border-radius:20px;
-                font-size:14px;
-                font-weight:600;
-                cursor:pointer;
-                -webkit-tap-highlight-color:transparent;
-                box-shadow:0 2px 8px rgba(0,0,0,0.3);
-                touch-action:manipulation;
-            ">닫기</button>
-        </div>
-    </div>
-    
+
 </body>
 </html>
