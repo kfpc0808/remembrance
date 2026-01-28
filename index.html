@@ -224,7 +224,7 @@
             justify-content: space-between;
             -webkit-align-items: center;
             align-items: center;
-            padding: 18px 0;
+            padding: 9px 0;
             border-bottom: 1px solid #f0f0f0;
             -webkit-transition: all 0.2s ease;
             transition: all 0.2s ease;
@@ -278,8 +278,8 @@
            HYMN SECTION - 찬송가
            ============================================ */
         .hymn-block {
-            margin: 28px 0;
-            padding: 24px;
+            margin: 14px 0;
+            padding: 20px 16px;
             background: linear-gradient(135deg, #fdfcfa 0%, #f8f6f1 100%);
             border-radius: 16px;
             border: 1px solid rgba(212,175,55,0.12);
@@ -315,12 +315,12 @@
         .hymn-title-btn {
             display: block;
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 16px;
             background: #ffffff;
             border: 1px solid #e8e5de;
             border-radius: 12px;
             font-family: 'Noto Serif KR', serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #2d3748;
             text-align: center;
@@ -329,6 +329,7 @@
             transition: all 0.2s ease;
             -webkit-tap-highlight-color: transparent;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            white-space: nowrap;
         }
         
         .hymn-title-btn:active {
@@ -341,7 +342,7 @@
            EXPANDABLE SECTIONS
            ============================================ */
         .expand-section {
-            margin: 24px 0;
+            margin: 12px 0;
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid #e8e8e8;
@@ -541,7 +542,7 @@
             -webkit-justify-content: center;
             justify-content: center;
             gap: 16px;
-            margin: 36px 0;
+            margin: 18px 0;
         }
         
         .divider-line {
@@ -855,7 +856,10 @@
     </div>
 
     <script>
+        var scrollPosition = 0;
+        
         function openHymnImage(hymnNumber) {
+            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             var overlay = document.getElementById('hymnOverlay');
             var img = document.getElementById('hymnImage');
             img.src = 'https://raw.githubusercontent.com/kfpc0808/remembrance/main/' + hymnNumber + '.jpg';
@@ -863,6 +867,7 @@
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
+            document.body.style.top = '-' + scrollPosition + 'px';
             document.body.style.width = '100%';
         }
         
@@ -871,7 +876,9 @@
             overlay.classList.remove('active');
             document.body.style.overflow = '';
             document.body.style.position = '';
+            document.body.style.top = '';
             document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
         }
         
         document.addEventListener('keydown', function(e) {
