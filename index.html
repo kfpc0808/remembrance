@@ -677,15 +677,15 @@
             bottom: 0;
             background: rgba(10,22,40,0.97);
             z-index: 9999;
+            -webkit-flex-direction: column;
+            flex-direction: column;
             -webkit-justify-content: center;
             justify-content: center;
             -webkit-align-items: center;
             align-items: center;
             padding: 20px;
             padding-top: calc(20px + env(safe-area-inset-top));
-            padding-bottom: calc(20px + env(safe-area-inset-bottom));
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
+            padding-bottom: calc(80px + env(safe-area-inset-bottom));
         }
         
         .mother-overlay.active {
@@ -694,77 +694,74 @@
         }
         
         .mother-overlay-inner {
-            position: relative;
             display: -webkit-flex;
             display: flex;
             -webkit-flex-direction: column;
             flex-direction: column;
             -webkit-align-items: center;
             align-items: center;
+            width: 100%;
+            max-width: 500px;
         }
         
         .mother-photo-frame {
-            padding: 8px;
+            padding: 6px;
             background: linear-gradient(135deg, #d4af37 0%, #f0d875 25%, #d4af37 50%, #f0d875 75%, #d4af37 100%);
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: 
                 0 10px 40px rgba(0,0,0,0.5),
                 0 0 60px rgba(212,175,55,0.2);
+            overflow: hidden;
+            width: 100%;
         }
         
         .mother-photo-frame img {
+            width: 100%;
+            height: auto;
             display: block;
-            border-radius: 10px;
-            -o-object-fit: contain;
-            object-fit: contain;
-            -webkit-transition: transform 0.3s ease;
-            transition: transform 0.3s ease;
-            touch-action: pinch-zoom;
+            border-radius: 8px;
         }
         
         .mother-caption {
-            margin-top: 20px;
+            margin-top: 16px;
             font-family: 'Noto Serif KR', serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #ffffff;
             letter-spacing: 0.1em;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
-        .mother-btn-group {
-            position: absolute;
-            bottom: -60px;
-            right: 0;
-            display: -webkit-flex;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .mother-zoom-btn {
-            background: rgba(212,175,55,0.95);
-            color: #fff;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 16px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
         .mother-close-btn {
+            position: fixed;
+            bottom: 30px;
+            bottom: calc(30px + env(safe-area-inset-bottom));
+            right: 30px;
             background: rgba(255,255,255,0.95);
             color: #333;
             border: none;
-            padding: 8px 18px;
-            border-radius: 16px;
-            font-size: 13px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 10000;
+        }
+        
+        /* 핀치줌 컨테이너 */
+        .pinch-zoom-container {
+            width: 100%;
+            overflow: hidden;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .pinch-zoom-container img {
+            transform-origin: center center;
+            -webkit-transform-origin: center center;
         }
     </style>
 </head>
@@ -975,19 +972,17 @@
     <div id="motherOverlay" class="mother-overlay" onclick="closeMotherImage()">
         <div class="mother-overlay-inner" onclick="event.stopPropagation()">
             <div class="mother-photo-frame">
-                <img id="motherImage" src="https://raw.githubusercontent.com/kfpc0808/remembrance/main/mother.jpg" alt="故 임정녀 어머님">
+                <div id="pinchZoomContainer" class="pinch-zoom-container">
+                    <img id="motherImage" src="https://raw.githubusercontent.com/kfpc0808/remembrance/main/mother.jpg" alt="故 임정녀 어머님">
+                </div>
             </div>
             <p class="mother-caption">故 임정녀 어머님</p>
-            <div class="mother-btn-group">
-                <button type="button" class="mother-zoom-btn" onclick="toggleZoom()">확대</button>
-                <button type="button" class="mother-close-btn" onclick="closeMotherImage()">닫기</button>
-            </div>
         </div>
+        <button type="button" class="mother-close-btn" onclick="closeMotherImage()">닫기</button>
     </div>
 
     <script>
         var scrollPosition = 0;
-        var isZoomed = false;
         
         function openHymnImage(hymnNumber) {
             scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -1015,11 +1010,7 @@
         function openMotherImage() {
             scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             var overlay = document.getElementById('motherOverlay');
-            isZoomed = false;
-            var img = document.getElementById('motherImage');
-            img.style.transform = 'scale(1)';
-            var btn = document.querySelector('.mother-zoom-btn');
-            btn.textContent = '확대';
+            resetPinchZoom();
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
@@ -1035,21 +1026,7 @@
             document.body.style.top = '';
             document.body.style.width = '';
             window.scrollTo(0, scrollPosition);
-            isZoomed = false;
-        }
-        
-        function toggleZoom() {
-            var img = document.getElementById('motherImage');
-            var btn = document.querySelector('.mother-zoom-btn');
-            if (isZoomed) {
-                img.style.transform = 'scale(1)';
-                btn.textContent = '확대';
-                isZoomed = false;
-            } else {
-                img.style.transform = 'scale(2)';
-                btn.textContent = '축소';
-                isZoomed = true;
-            }
+            resetPinchZoom();
         }
         
         document.addEventListener('keydown', function(e) {
@@ -1058,6 +1035,104 @@
                 closeMotherImage();
             }
         });
+        
+        // 핀치줌 구현
+        var scale = 1;
+        var posX = 0;
+        var posY = 0;
+        var lastScale = 1;
+        var lastPosX = 0;
+        var lastPosY = 0;
+        var startDist = 0;
+        var startX = 0;
+        var startY = 0;
+        var isPinching = false;
+        var isDragging = false;
+        
+        function resetPinchZoom() {
+            scale = 1;
+            posX = 0;
+            posY = 0;
+            lastScale = 1;
+            lastPosX = 0;
+            lastPosY = 0;
+            var img = document.getElementById('motherImage');
+            if (img) {
+                img.style.transform = 'translate(0px, 0px) scale(1)';
+            }
+        }
+        
+        function getDistance(touches) {
+            var dx = touches[0].clientX - touches[1].clientX;
+            var dy = touches[0].clientY - touches[1].clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+        
+        function getCenter(touches) {
+            return {
+                x: (touches[0].clientX + touches[1].clientX) / 2,
+                y: (touches[0].clientY + touches[1].clientY) / 2
+            };
+        }
+        
+        var container = document.getElementById('pinchZoomContainer');
+        var img = document.getElementById('motherImage');
+        
+        if (container && img) {
+            container.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 2) {
+                    e.preventDefault();
+                    isPinching = true;
+                    startDist = getDistance(e.touches);
+                    lastScale = scale;
+                } else if (e.touches.length === 1 && scale > 1) {
+                    isDragging = true;
+                    startX = e.touches[0].clientX - posX;
+                    startY = e.touches[0].clientY - posY;
+                }
+            }, { passive: false });
+            
+            container.addEventListener('touchmove', function(e) {
+                if (isPinching && e.touches.length === 2) {
+                    e.preventDefault();
+                    var dist = getDistance(e.touches);
+                    scale = Math.min(Math.max(lastScale * (dist / startDist), 1), 4);
+                    img.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+                } else if (isDragging && e.touches.length === 1 && scale > 1) {
+                    e.preventDefault();
+                    posX = e.touches[0].clientX - startX;
+                    posY = e.touches[0].clientY - startY;
+                    
+                    // 경계 제한
+                    var maxX = (scale - 1) * img.offsetWidth / 2;
+                    var maxY = (scale - 1) * img.offsetHeight / 2;
+                    posX = Math.min(Math.max(posX, -maxX), maxX);
+                    posY = Math.min(Math.max(posY, -maxY), maxY);
+                    
+                    img.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+                }
+            }, { passive: false });
+            
+            container.addEventListener('touchend', function(e) {
+                if (e.touches.length < 2) {
+                    isPinching = false;
+                    lastScale = scale;
+                }
+                if (e.touches.length === 0) {
+                    isDragging = false;
+                    lastPosX = posX;
+                    lastPosY = posY;
+                    
+                    // 축소 시 원위치
+                    if (scale <= 1) {
+                        scale = 1;
+                        posX = 0;
+                        posY = 0;
+                        img.style.transform = 'translate(0px, 0px) scale(1)';
+                    }
+                }
+            });
+        }
     </script>
 
 </body>
