@@ -595,6 +595,18 @@
             color: #1a2a4a;
             letter-spacing: 0.05em;
         }
+        
+        .mother-link {
+            cursor: pointer;
+            color: #c9a227 !important;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-transition: opacity 0.2s;
+            transition: opacity 0.2s;
+        }
+        
+        .mother-link:active {
+            opacity: 0.7;
+        }
 
         /* ============================================
            HYMN IMAGE OVERLAY
@@ -647,6 +659,88 @@
             padding: 10px 20px;
             border-radius: 20px;
             font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* ============================================
+           MOTHER IMAGE OVERLAY
+           ============================================ */
+        .mother-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10,22,40,0.97);
+            z-index: 9999;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top));
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
+        }
+        
+        .mother-overlay.active {
+            display: -webkit-flex;
+            display: flex;
+        }
+        
+        .mother-overlay-inner {
+            position: relative;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-align-items: center;
+            align-items: center;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .mother-photo-frame {
+            padding: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #f0d875 25%, #d4af37 50%, #f0d875 75%, #d4af37 100%);
+            border-radius: 16px;
+            box-shadow: 
+                0 10px 40px rgba(0,0,0,0.5),
+                0 0 60px rgba(212,175,55,0.2);
+        }
+        
+        .mother-photo-frame img {
+            max-width: 100%;
+            max-height: calc(100vh - 200px);
+            border-radius: 10px;
+            display: block;
+            -o-object-fit: contain;
+            object-fit: contain;
+        }
+        
+        .mother-caption {
+            margin-top: 20px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.1em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .mother-close-btn {
+            position: absolute;
+            bottom: -60px;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 16px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
@@ -839,7 +933,7 @@
             <p class="footer-ref">— 요한복음 14:6</p>
             
             <div class="footer-love">
-                <p>하나님은 사랑이십니다</p>
+                <p class="mother-link" onclick="openMotherImage()">어머니 사랑합니다~</p>
             </div>
         </footer>
 
@@ -852,6 +946,19 @@
         <div class="hymn-overlay-inner" onclick="event.stopPropagation()">
             <img id="hymnImage" src="" alt="찬송가 악보">
             <button type="button" class="hymn-close-btn" onclick="closeHymnImage()">닫기</button>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MOTHER IMAGE OVERLAY
+         ============================================ -->
+    <div id="motherOverlay" class="mother-overlay" onclick="closeMotherImage()">
+        <div class="mother-overlay-inner" onclick="event.stopPropagation()">
+            <div class="mother-photo-frame">
+                <img id="motherImage" src="https://raw.githubusercontent.com/kfpc0808/remembrance/main/mother.jpg" alt="故 임정녀 어머님">
+            </div>
+            <p class="mother-caption">故 임정녀 어머님</p>
+            <button type="button" class="mother-close-btn" onclick="closeMotherImage()">닫기</button>
         </div>
     </div>
 
@@ -881,8 +988,31 @@
             window.scrollTo(0, scrollPosition);
         }
         
+        function openMotherImage() {
+            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            var overlay = document.getElementById('motherOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = '-' + scrollPosition + 'px';
+            document.body.style.width = '100%';
+        }
+        
+        function closeMotherImage() {
+            var overlay = document.getElementById('motherOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
+        }
+        
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeHymnImage();
+            if (e.key === 'Escape') {
+                closeHymnImage();
+                closeMotherImage();
+            }
         });
     </script>
 
