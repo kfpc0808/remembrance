@@ -75,9 +75,11 @@
             --shadow-lifted: 0 10px 25px -5px rgb(0 20 60 / 0.1), 0 8px 10px -6px rgb(0 20 60 / 0.1);
         }
         
-        /* 4. Base & Layout Styles */
+        /* 4. Base & Layout Styles - iOS Safari 최적화 */
         body {
+            display: -webkit-flex;
             display: flex;
+            -webkit-justify-content: center;
             justify-content: center;
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
@@ -85,6 +87,7 @@
             padding-right: env(safe-area-inset-right);
             min-height: 100vh;
             min-height: -webkit-fill-available;
+            -webkit-overflow-scrolling: touch;
         }
 
         .program-sheet {
@@ -132,29 +135,29 @@
         .text-navy-deep { color: var(--color-navy-deep); }
         .text-gray-600 { color: var(--color-gray-600); }
 
-        /* Components */
+        /* Components - iOS Safari 호환 */
         .service-header {
             border-bottom: 1px solid #e5e7eb;
             padding-bottom: var(--space-8);
             margin-bottom: var(--space-12);
         }
 
-        .service-item { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .prose { color: var(--color-gray-800); line-height: 1.8; text-align: justify; }
+        .service-item { -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .prose { color: var(--color-gray-800); line-height: 1.8; text-align: justify; word-break: keep-all; }
 
         .centered-divider { text-align: center; overflow: hidden; }
         .centered-divider::before,
         .centered-divider::after { content: ''; display: inline-block; vertical-align: middle; width: 40%; height: 1px; background: #e5e7eb; }
         .centered-divider svg { display: inline-block; vertical-align: middle; color: var(--color-gold-accent); width: 16px; height: 16px; margin: 0 var(--space-4); }
 
-        /* -- Program Row Layout -- */
-        .program-row { display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); padding: var(--space-2) 0; }
-        .program-title { display: flex; align-items: center; gap: var(--space-4); font-size: var(--font-size-xl); font-weight: 500; color: var(--color-navy-deep); flex-shrink: 0; }
+        /* -- Program Row Layout -- iOS Safari 호환 */
+        .program-row { display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: center; align-items: center; gap: var(--space-6); padding: var(--space-2) 0; }
+        .program-title { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; gap: var(--space-4); font-size: var(--font-size-xl); font-weight: 500; color: var(--color-navy-deep); -webkit-flex-shrink: 0; flex-shrink: 0; }
         .program-title svg { width: 1.2em; height: 1.2em; color: var(--color-gold-accent); }
         .program-detail { font-size: var(--font-size-lg); color: var(--color-gray-800); text-align: right; font-weight: 400; }
         
-        /* -- Hymn Block Layout -- */
-        .hymn-section .hymn-header { display: flex; justify-content: space-between; align-items: center; }
+        /* -- Hymn Block Layout -- iOS Safari 호환 */
+        .hymn-section .hymn-header { display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: center; align-items: center; }
         .hymn-section .hymn-title-link { text-align: center; margin-top: var(--space-4); }
         .hymn-section .hymn-title-link a {
             display: inline-block;
@@ -166,96 +169,133 @@
             border-radius: var(--border-radius-lg);
             background-color: #f8fafc;
             border: 1px solid #f1f5f9;
+            -webkit-box-shadow: var(--shadow-subtle);
             box-shadow: var(--shadow-subtle);
+            -webkit-transition: all 0.2s ease-in-out;
             transition: all 0.2s ease-in-out;
+            -webkit-tap-highlight-color: transparent;
         }
-        .hymn-section .hymn-title-link a:hover {
+        .hymn-section .hymn-title-link a:hover,
+        .hymn-section .hymn-title-link a:active {
+            -webkit-transform: translateY(-2px);
             transform: translateY(-2px);
             border-color: #e2e8f0;
+            -webkit-box-shadow: var(--shadow-lifted);
             box-shadow: var(--shadow-lifted);
             color: var(--color-navy-deep);
         }
 
-        /* -- Collapsible Section Layout -- */
+        /* -- Collapsible Section Layout -- iOS Safari 호환 */
         .collapsible-item .service-title { /* For expandable items like Creed, Scripture */
+            display: -webkit-flex;
             display: flex;
+            -webkit-align-items: center;
             align-items: center;
             gap: var(--space-4);
             font-size: var(--font-size-xl); /* UNIFIED FONT SIZE */
             font-weight: 700;
             color: var(--color-navy-deep);
         }
-        .collapsible-item .service-title svg { width: 1.1em; height: 1.1em; flex-shrink: 0; color: var(--color-gold-accent); }
+        .collapsible-item .service-title svg { width: 1.1em; height: 1.1em; -webkit-flex-shrink: 0; flex-shrink: 0; color: var(--color-gold-accent); }
 
-        .collapsible-item > summary { list-style: none; cursor: pointer; position: relative; transition: margin-bottom 0.2s ease; }
+        .collapsible-item > summary { list-style: none; cursor: pointer; position: relative; -webkit-transition: margin-bottom 0.2s ease; transition: margin-bottom 0.2s ease; -webkit-tap-highlight-color: transparent; }
         .collapsible-item > summary::-webkit-details-marker { display: none; }
         .collapsible-item > summary .service-title { margin-bottom: 0; width: 100%; }
         .collapsible-item[open] > summary .service-title { margin-bottom: var(--space-4); }
 
-        .collapsible-item > summary::after { content: ''; position: absolute; right: 0.5rem; top: 50%; width: 0.6em; height: 0.6em; border-style: solid; border-color: var(--color-gray-500); border-width: 0 2px 2px 0; transform: translateY(-60%) rotate(45deg); transition: transform 0.2s ease-in-out; }
-        .collapsible-item[open] > summary::after { transform: translateY(-40%) rotate(225deg); }
+        .collapsible-item > summary::after { content: ''; position: absolute; right: 0.5rem; top: 50%; width: 0.6em; height: 0.6em; border-style: solid; border-color: var(--color-gray-500); border-width: 0 2px 2px 0; -webkit-transform: translateY(-60%) rotate(45deg); transform: translateY(-60%) rotate(45deg); -webkit-transition: transform 0.2s ease-in-out; transition: transform 0.2s ease-in-out; }
+        .collapsible-item[open] > summary::after { -webkit-transform: translateY(-40%) rotate(225deg); transform: translateY(-40%) rotate(225deg); }
         .collapsible-item .collapsible-content { padding-left: calc(1.1em + var(--space-4)); margin-top: var(--space-2); }
 
-        /* Scripture source specific styles */
-        .scripture-sources { margin-top: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); }
-        .scripture-source { background-color: #fdfdfd; border: 1px solid #e5e7eb; border-radius: var(--border-radius-md); transition: box-shadow 0.2s ease; }
+        /* Scripture source specific styles - iOS Safari 호환 */
+        .scripture-sources { margin-top: var(--space-6); display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: var(--space-2); }
+        .scripture-source { background-color: #fdfdfd; border: 1px solid #e5e7eb; border-radius: var(--border-radius-md); -webkit-transition: box-shadow 0.2s ease; transition: box-shadow 0.2s ease; }
         .scripture-source:hover { box-shadow: var(--shadow-subtle); }
-        .scripture-source > summary { list-style: none; cursor: pointer; padding: var(--space-4); font-weight: 500; font-size: var(--font-size-lg); color: var(--color-navy-medium); position: relative; }
+        .scripture-source > summary { list-style: none; cursor: pointer; padding: var(--space-4); font-weight: 500; font-size: var(--font-size-lg); color: var(--color-navy-medium); position: relative; -webkit-tap-highlight-color: transparent; }
         .scripture-source > summary::-webkit-details-marker { display: none; }
-        .scripture-source > summary::after { content: ''; position: absolute; right: 1.25rem; top: 50%; width: 0.5em; height: 0.5em; border-style: solid; border-color: var(--color-gray-500); border-width: 0 2px 2px 0; transform: translateY(-50%) rotate(45deg); transition: transform 0.2s ease-in-out; }
-        .scripture-source[open] > summary::after { transform: translateY(-25%) rotate(225deg); }
+        .scripture-source > summary::after { content: ''; position: absolute; right: 1.25rem; top: 50%; width: 0.5em; height: 0.5em; border-style: solid; border-color: var(--color-gray-500); border-width: 0 2px 2px 0; -webkit-transform: translateY(-50%) rotate(45deg); transform: translateY(-50%) rotate(45deg); -webkit-transition: transform 0.2s ease-in-out; transition: transform 0.2s ease-in-out; }
+        .scripture-source[open] > summary::after { -webkit-transform: translateY(-25%) rotate(225deg); transform: translateY(-25%) rotate(225deg); }
         .scripture-source[open] > summary { border-bottom: 1px solid #e5e7eb; }
         .scripture-source .prose { padding: var(--space-5); font-size: var(--font-size-base); }
-        .scripture-text .verse { display: flex; gap: var(--space-4); }
+        .scripture-text .verse { display: -webkit-flex; display: flex; gap: var(--space-4); }
         .scripture-text .verse-number { font-weight: 700; font-size: var(--font-size-sm); color: var(--color-gold-accent); line-height: inherit; }
         .scripture-source .prose .english-scripture { color: var(--color-gray-600); font-size: var(--font-size-sm); font-style: italic; margin-top: var(--space-4); border-left: 3px solid var(--color-gold-accent); padding-left: var(--space-4); }
 
-        /* Hymn Image Overlay */
+        /* Hymn Image Overlay - iOS Safari 최적화 */
         .hymn-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
             height: 100%;
+            height: -webkit-fill-available;
             background: rgba(0, 0, 0, 0.92);
-            z-index: 1000;
+            z-index: 9999;
+            -webkit-justify-content: center;
             justify-content: center;
+            -webkit-align-items: center;
             align-items: center;
             cursor: pointer;
+            -webkit-overflow-scrolling: touch;
+            -webkit-tap-highlight-color: transparent;
         }
         .hymn-overlay.active {
+            display: -webkit-flex;
             display: flex;
         }
         .hymn-overlay img {
-            max-width: 95%;
-            max-height: 95%;
+            max-width: 94vw;
+            max-height: 85vh;
+            max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 80px);
+            width: auto;
+            height: auto;
+            -o-object-fit: contain;
             object-fit: contain;
-            border-radius: var(--border-radius-md);
+            border-radius: 8px;
+            -webkit-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
         .hymn-overlay .close-btn {
             position: absolute;
             top: 20px;
+            top: calc(20px + env(safe-area-inset-top));
             right: 20px;
+            right: calc(20px + env(safe-area-inset-right));
             width: 44px;
             height: 44px;
-            background: rgba(255, 255, 255, 0.15);
+            min-width: 44px;
+            min-height: 44px;
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 300;
             cursor: pointer;
+            display: -webkit-flex;
             display: flex;
+            -webkit-align-items: center;
             align-items: center;
+            -webkit-justify-content: center;
             justify-content: center;
+            -webkit-transition: background 0.2s;
             transition: background 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
-        .hymn-overlay .close-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
+        .hymn-overlay .close-btn:hover,
+        .hymn-overlay .close-btn:active {
+            background: rgba(255, 255, 255, 0.35);
         }
         .hymn-title-link a {
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -403,6 +443,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>
         </div>
 
+
         <section class="service-item mt-12">
             <details class="collapsible-item">
                 <summary>
@@ -412,29 +453,36 @@
                     </div>
                 </summary>
                 <div class="collapsible-content">
-                    <div class="scripture-sources">
-                        <details class="scripture-source">
-                            <summary>요한복음 14:1-6</summary>
-                             <div class="prose scripture-text">
-                                <div class="verse"><span class="verse-number">1</span><p>너희는 마음에 근심하지 말라 하나님을 믿으니 또 나를 믿으라</p></div>
-                                <div class="verse"><span class="verse-number">2</span><p>내 아버지 집에 거할 곳이 많도다 그렇지 않으면 너희에게 일렀으리라 내가 너희를 위하여 거처를 예비하러 가노니</p></div>
-                                <div class="verse"><span class="verse-number">3</span><p>가서 너희를 위하여 거처를 예비하면 내가 다시 와서 너희를 내게로 영접하여 나 있는 곳에 너희도 있게 하리라</p></div>
-                                <div class="verse"><span class="verse-number">4</span><p>내가 어디로 가는지 그 길을 너희가 아느니라</p></div>
-                                <div class="verse"><span class="verse-number">5</span><p>도마가 이르되 주여 주께서 어디로 가시는지 우리가 알지 못하거늘 그 길을 어찌 알겠사옵나이까</p></div>
-                                <div class="verse"><span class="verse-number">6</span><p>예수께서 이르시되 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라</p></div>
-                            </div>
-                        </details>
-                        <details class="scripture-source">
-                            <summary>사도행전 4:12</summary>
-                            <div class="prose scripture-text">
-                                <p>다른 이로써는 구원을 받을 수 없나니 천하 사람 중에 구원을 받을 만한 다른 이름을 우리에게 주신 일이 없음이라 하였더라</p>
-                                <p class="english-scripture">Salvation is found in no one else, for there is no other name under heaven given to mankind by which we must be saved.”</p>
+                    <!-- 성경말씀 - 인라인 스타일 모바일 최적화 -->
+                    <div style="display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:12px;margin-top:8px;">
+                        
+                        <!-- 신명기 31:5-7 -->
+                        <details style="background:linear-gradient(180deg,#ffffff 0%,#fafafa 100%);border:1px solid rgba(212,175,55,0.2);border-radius:12px;overflow:hidden;-webkit-tap-highlight-color:transparent;">
+                            <summary style="list-style:none;cursor:pointer;padding:16px 20px;font-weight:600;font-size:16px;color:#1a3a69;position:relative;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:10px;">
+                                <span style="color:#d4af37;font-size:14px;">📖</span>
+                                신명기 31:5-7
+                                <span style="position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:2px solid #9ca3af;border-bottom:2px solid #9ca3af;-webkit-transform:translateY(-50%) rotate(45deg);transform:translateY(-50%) rotate(45deg);"></span>
+                            </summary>
+                            <div style="padding:20px;background:#fefefe;border-top:1px solid rgba(212,175,55,0.15);">
+                                <div style="display:-webkit-flex;display:flex;gap:12px;margin-bottom:16px;line-height:1.8;">
+                                    <span style="color:#d4af37;font-weight:700;font-size:13px;min-width:20px;-webkit-flex-shrink:0;flex-shrink:0;">5</span>
+                                    <p style="margin:0;font-size:15px;color:#2d3748;text-align:justify;word-break:keep-all;">또한 여호와께서 그들을 너희 앞에 넘기시리니 너희는 내가 너희에게 명한 모든 명령대로 그들에게 행할 것이라</p>
+                                </div>
+                                <div style="display:-webkit-flex;display:flex;gap:12px;margin-bottom:16px;line-height:1.8;">
+                                    <span style="color:#d4af37;font-weight:700;font-size:13px;min-width:20px;-webkit-flex-shrink:0;flex-shrink:0;">6</span>
+                                    <p style="margin:0;font-size:15px;color:#2d3748;text-align:justify;word-break:keep-all;"><span style="color:#081425;font-weight:600;">너희는 강하고 담대하라 두려워하지 말라 그들 앞에서 떨지 말라</span> 이는 네 하나님 여호와 그가 너와 함께 가시며 결코 너를 떠나지 아니하시며 버리지 아니하실 것임이라 하고</p>
+                                </div>
+                                <div style="display:-webkit-flex;display:flex;gap:12px;line-height:1.8;">
+                                    <span style="color:#d4af37;font-weight:700;font-size:13px;min-width:20px;-webkit-flex-shrink:0;flex-shrink:0;">7</span>
+                                    <p style="margin:0;font-size:15px;color:#2d3748;text-align:justify;word-break:keep-all;">모세가 여호수아를 불러 온 이스라엘의 목전에서 그에게 이르되 <span style="color:#081425;font-weight:600;">너는 강하고 담대하라</span> 너는 이 백성을 거느리고 여호와께서 그들의 조상에게 주리라고 맹세하신 땅에 들어가서 그들에게 그 땅을 차지하게 하라</p>
+                                </div>
                             </div>
                         </details>
                     </div>
                 </div>
             </details>
         </section>
+        
         
         <section class="hymn-section mt-12">
             <div class="hymn-header">
@@ -563,24 +611,27 @@
     </main>
 
     <script>
-        // No client-side JavaScript is necessary for this document's functionality.
-        // The collapsible sections are handled by the native HTML <details> and <summary> elements.
-        
-        // Hymn Image Viewer
+        // Hymn Image Viewer - iOS Safari 최적화
         function openHymnImage(hymnNumber) {
-            const overlay = document.getElementById('hymnOverlay');
-            const img = document.getElementById('hymnImage');
-            // GitHub raw 이미지 URL - 실제 repository 경로로 수정 필요
-            img.src = `https://raw.githubusercontent.com/kfpc0808/remembrance/main/${hymnNumber}.jpg`;
-            img.alt = `찬송가 ${hymnNumber}`;
+            var overlay = document.getElementById('hymnOverlay');
+            var img = document.getElementById('hymnImage');
+            // GitHub raw 이미지 URL
+            img.src = 'https://raw.githubusercontent.com/kfpc0808/remembrance/main/' + hymnNumber + '.jpg';
+            img.alt = '찬송가 ' + hymnNumber;
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = '100%';
         }
         
         function closeHymnImage() {
-            const overlay = document.getElementById('hymnOverlay');
+            var overlay = document.getElementById('hymnOverlay');
             overlay.classList.remove('active');
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
         }
         
         // ESC 키로 닫기
@@ -589,12 +640,19 @@
                 closeHymnImage();
             }
         });
+        
+        // 터치 이벤트 - 이미지 외부 터치시 닫기
+        document.getElementById('hymnOverlay').addEventListener('touchend', function(e) {
+            if (e.target === this) {
+                closeHymnImage();
+            }
+        }, {passive: true});
     </script>
     
-    <!-- Hymn Image Overlay -->
+    <!-- Hymn Image Overlay - iOS 최적화 -->
     <div id="hymnOverlay" class="hymn-overlay" onclick="closeHymnImage()">
-        <button class="close-btn" onclick="closeHymnImage()" aria-label="닫기">×</button>
-        <img id="hymnImage" src="" alt="찬송가 악보" onclick="event.stopPropagation()">
+        <button type="button" class="close-btn" onclick="event.stopPropagation(); closeHymnImage();" aria-label="닫기">×</button>
+        <img id="hymnImage" src="" alt="찬송가 악보" onclick="event.stopPropagation();" ontouchend="event.stopPropagation();">
     </div>
     
 </body>
