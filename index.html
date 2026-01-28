@@ -684,6 +684,8 @@
             padding: 20px;
             padding-top: calc(20px + env(safe-area-inset-top));
             padding-bottom: calc(20px + env(safe-area-inset-bottom));
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .mother-overlay.active {
@@ -699,8 +701,6 @@
             flex-direction: column;
             -webkit-align-items: center;
             align-items: center;
-            max-width: 90%;
-            max-height: 90%;
         }
         
         .mother-photo-frame {
@@ -713,12 +713,13 @@
         }
         
         .mother-photo-frame img {
-            max-width: 100%;
-            max-height: calc(100vh - 200px);
-            border-radius: 10px;
             display: block;
+            border-radius: 10px;
             -o-object-fit: contain;
             object-fit: contain;
+            -webkit-transition: transform 0.3s ease;
+            transition: transform 0.3s ease;
+            touch-action: pinch-zoom;
         }
         
         .mother-caption {
@@ -731,10 +732,29 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
-        .mother-close-btn {
+        .mother-btn-group {
             position: absolute;
             bottom: -60px;
             right: 0;
+            display: -webkit-flex;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .mother-zoom-btn {
+            background: rgba(212,175,55,0.95);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .mother-close-btn {
             background: rgba(255,255,255,0.95);
             color: #333;
             border: none;
@@ -958,12 +978,16 @@
                 <img id="motherImage" src="https://raw.githubusercontent.com/kfpc0808/remembrance/main/mother.jpg" alt="故 임정녀 어머님">
             </div>
             <p class="mother-caption">故 임정녀 어머님</p>
-            <button type="button" class="mother-close-btn" onclick="closeMotherImage()">닫기</button>
+            <div class="mother-btn-group">
+                <button type="button" class="mother-zoom-btn" onclick="toggleZoom()">확대</button>
+                <button type="button" class="mother-close-btn" onclick="closeMotherImage()">닫기</button>
+            </div>
         </div>
     </div>
 
     <script>
         var scrollPosition = 0;
+        var isZoomed = false;
         
         function openHymnImage(hymnNumber) {
             scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -991,6 +1015,11 @@
         function openMotherImage() {
             scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             var overlay = document.getElementById('motherOverlay');
+            isZoomed = false;
+            var img = document.getElementById('motherImage');
+            img.style.transform = 'scale(1)';
+            var btn = document.querySelector('.mother-zoom-btn');
+            btn.textContent = '확대';
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
@@ -1006,6 +1035,21 @@
             document.body.style.top = '';
             document.body.style.width = '';
             window.scrollTo(0, scrollPosition);
+            isZoomed = false;
+        }
+        
+        function toggleZoom() {
+            var img = document.getElementById('motherImage');
+            var btn = document.querySelector('.mother-zoom-btn');
+            if (isZoomed) {
+                img.style.transform = 'scale(1)';
+                btn.textContent = '확대';
+                isZoomed = false;
+            } else {
+                img.style.transform = 'scale(2)';
+                btn.textContent = '축소';
+                isZoomed = true;
+            }
         }
         
         document.addEventListener('keydown', function(e) {
